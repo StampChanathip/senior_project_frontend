@@ -2,11 +2,12 @@ import "../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
 
-import MovingCar from "./Car/MovingCar";
-
 import nodeData from "../MockData/node.json";
 import linkData from "../MockData/link.json";
-import path1 from "../MockData/path1.json";
+import mockPath from "../MockData/mockPath.json";
+import mockPath2 from "../MockData/path2.json";
+import MovingMarker from "./MovingMarker";
+import convertDataToPath from "../Utils/convertDataToPath";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -20,6 +21,9 @@ const MainMap = () => {
     shadowSize: [0, 0],
   });
 
+  // const path = convertDataToPath(mockPath);
+  const path2 = convertDataToPath(mockPath2);
+
   return (
     <div className="leaflet-container">
       <MapContainer
@@ -31,7 +35,9 @@ const MainMap = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        <MovingCar path={path1} initialPoint={path1[0]} />
+        {/* <MovingMarker path={path} carId={1} status={"charging"} /> */}
+        <MovingMarker path={path2} carId={18} status={"run"} />
+        {/* <GeoJSON key={Math.random()} data={nodeData} /> */}
         <GeoJSON key={Math.random()} data={linkData} />
       </MapContainer>
     </div>

@@ -11,6 +11,11 @@ function App() {
       }}
     >
       <TimeSlider />
+
+      <form method="post" enctype="multipart/form-data">
+        <input type="file" name="excel_file" />
+        <button type="submit">Import</button>
+      </form>
       <MainMap />
     </div>
   );

@@ -7,3 +7,31 @@
   width: 100vw;
   position: absolute;
 }
+
+.leaflet-tooltip.oneDigit {
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: -9px;
+  top: 0.5px;
+}
+.leaflet-tooltip.oneDigit:before {
+  background: transparent;
+  border: 0px;
+}
+
+.leaflet-tooltip.twoDigit {
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: -14px;
+  top: 0.5px;
+}
+.leaflet-tooltip.twoDigit:before {
+  background: transparent;
+  border: 0px;
+}

@@ -1,0 +1,114 @@
+[
+    {
+        "carId": "1",
+        "node": "99821",
+        "status": "nan",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "99822",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "14547",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "14540",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "1383",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "35628",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "37072",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "99170",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "1116",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "99166",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "1118",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "35742",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "99113",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "1120",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "21206",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    },
+    {
+        "carId": "1",
+        "node": "37020",
+        "status": "run",
+        "battery": "0",
+        "passengers": []
+    }
+]

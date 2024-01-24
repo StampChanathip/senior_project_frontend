@@ -29,7 +29,7 @@ const TimeSlider = () => {
       >
         {isPlay ? <PauseIcon /> : <PlayArrowIcon />}
       </IconButton>
-      <Slider
+      {/* <Slider
         defaultValue={0}
         value={sliderValue}
         onChange={(e) => dispatch(setSliderValue(e.target.value))}
@@ -38,7 +38,7 @@ const TimeSlider = () => {
         min={0}
         max={10}
         sx={{ width: 800 }}
-      />
+      /> */}
     </Box>
   );
 };
