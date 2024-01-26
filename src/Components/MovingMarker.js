@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { LeafletTrackingMarker } from "react-leaflet-tracking-marker";
 import L from "leaflet";
 import { Box, Typography } from "@mui/material";
 import { Tooltip, Popup } from "react-leaflet";
@@ -11,7 +10,7 @@ import { setSliderValue } from "../Redux/timeSliderSlice";
 
 const icon = (url) =>
   L.icon({
-    iconSize: [35, 25],
+    iconSize: [20, 20],
     popupAnchor: [2, -20],
     iconUrl: url,
   });
@@ -26,6 +25,10 @@ const car = (status) => {
     return carAvailable;
   } else if (status === "charging") {
     return carCharging;
+  } else if (status === "full") {
+    return carFull;
+  } else if (status === "notAvailable") {
+    return carNotAvailable;
   }
 };
 
@@ -49,7 +52,7 @@ const MovingMarker = ({ path, carId, status }) => {
         clearInterval(interval);
       };
     }
-  }, [isPlay, path]);
+  }, [isPlay, path, sliderValue]);
 
   return (
     <Box>
@@ -63,14 +66,14 @@ const MovingMarker = ({ path, carId, status }) => {
         </Popup>
         {carId < 10 ? (
           <Tooltip className="oneDigit" direction="right" permanent={true}>
-            <Typography fontSize={14} fontWeight={700}>
-              {carId}
+            <Typography fontSize={14} fontWeight={700} color={"black"}>
+              {/* {carId} */}
             </Typography>
           </Tooltip>
         ) : (
           <Tooltip className="twoDigit" direction="right" permanent={true}>
-            <Typography fontSize={14} fontWeight={700}>
-              {carId}
+            <Typography fontSize={14} fontWeight={700} color={"black"}>
+              {/* {carId} */}
             </Typography>
           </Tooltip>
         )}

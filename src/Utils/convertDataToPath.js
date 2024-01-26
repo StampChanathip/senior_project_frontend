@@ -9,11 +9,11 @@ const convertDataToPath = (mockPath) => {
   const pathData = coorData
     .map((i) => {
       const linkNormal = linkCoor.find(
-        (x) => x.nodeFrom == i[0] && x.nodeTo == i[1]
+        (x) => x.nodeFrom === Number(i[0]) && x.nodeTo === Number(i[1])
       );
 
       const linkReverse = linkCoor.find(
-        (x) => x.nodeFrom == i[1] && x.nodeTo == i[0]
+        (x) => x.nodeFrom === Number(i[1]) && x.nodeTo === Number(i[0])
       );
       if (linkNormal) {
         return linkNormal.coordinates;

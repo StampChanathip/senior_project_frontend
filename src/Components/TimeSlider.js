@@ -14,13 +14,14 @@ const TimeSlider = () => {
       sx={{
         display: "flex",
         position: "absolute",
-        top: "18px",
-        left: "64px",
+        bottom: "18px",
+        right: "128px",
+        width: "80vw",
         alignItems: "center",
-        backgroundColor: "white",
+        backgroundColor: "#D9D9D9",
         borderRadius: "12px",
         padding: "8px",
-        zIndex: 10000,
+        zIndex: 1000,
       }}
     >
       <IconButton

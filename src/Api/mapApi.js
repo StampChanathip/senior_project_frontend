@@ -1,14 +1,26 @@
 import axios from "axios";
 
-async function uploadExcelFile(file) {
+const uploadExcelFile = async (file) => {
   const formData = new FormData();
-  formData.append("file", file);
+  formData.append("excel_file", file);
   try {
-    const data = await axios.post("http://127.0.0.1:8000/", formData, {
+    const response = await axios.post("http://127.0.0.1:8000/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
-    console.log(data);
+    return response.data.data;
   } catch (error) {
     console.log(error);
+    return [];
   }
-}
+};
+
+const getCarDetails = async () => {
+  try {
+    const data = await axios.get("http://127.0.0.1:8000/");
+    console.log(data);
+  } catch (error) {
+    alert(error);
+  }
+};
+
+export { uploadExcelFile, getCarDetails };

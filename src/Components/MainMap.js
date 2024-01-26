@@ -8,9 +8,11 @@ import mockPath from "../MockData/mockPath.json";
 import mockPath2 from "../MockData/path2.json";
 import MovingMarker from "./MovingMarker";
 import convertDataToPath from "../Utils/convertDataToPath";
+import { useSelector } from "react-redux";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
+  const { excelData } = useSelector((state) => state.excelData);
 
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -21,7 +23,7 @@ const MainMap = () => {
     shadowSize: [0, 0],
   });
 
-  // const path = convertDataToPath(mockPath);
+  const path = convertDataToPath(excelData);
   const path2 = convertDataToPath(mockPath2);
 
   return (
@@ -35,8 +37,8 @@ const MainMap = () => {
           attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
           url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
-        {/* <MovingMarker path={path} carId={1} status={"charging"} /> */}
-        <MovingMarker path={path2} carId={18} status={"run"} />
+        <MovingMarker path={path} carId={1} status={"run"} />
+        {/* <MovingMarker path={path2} carId={18} status={"run"} /> */}
         {/* <GeoJSON key={Math.random()} data={nodeData} /> */}
         <GeoJSON key={Math.random()} data={linkData} />
       </MapContainer>

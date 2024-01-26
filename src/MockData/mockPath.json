@@ -1,13 +1,6 @@
 [
     {
         "carId": "1",
-        "node": "99821",
-        "status": "nan",
-        "battery": "0",
-        "passengers": []
-    },
-    {
-        "carId": "1",
         "node": "99822",
         "status": "run",
         "battery": "0",
