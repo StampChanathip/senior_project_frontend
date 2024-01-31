@@ -7,13 +7,19 @@ import ImportForm from "./Components/ImportForm";
 import SideBarMenu from "./Components/SideBarMenu";
 import { Box } from "@mui/material";
 import NoFileText from "./Components/NoFileText";
+import mockData from "./MockData/mockData.json";
 
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
+import { setExcelData } from "./Redux/excelDataSlice";
 
 function App() {
+  const dispatch = useDispatch();
   const { excelData } = useSelector((state) => state.excelData);
-  useEffect(() => console.log(excelData), [excelData]);
+  useEffect(() => {
+    // dispatch(setExcelData(mockData));
+  }, []);
+
   return (
     <ScreenWrapper>
       {excelData.length === 0 ? (
