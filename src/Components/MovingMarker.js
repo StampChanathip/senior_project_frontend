@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import L from "leaflet";
 import { Box, Typography } from "@mui/material";
 import { Tooltip, Popup } from "react-leaflet";
@@ -7,10 +7,11 @@ import ReactLeafletDriftMarker from "react-leaflet-drift-marker";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 import { setSliderValue } from "../Redux/timeSliderSlice";
+import removeConsecutiveDuplicates from "../Utils/removeConsecutiveDuplicates";
 
 const icon = (url) =>
   L.icon({
-    iconSize: [20, 20],
+    iconSize: [24, 24],
     popupAnchor: [2, -20],
     iconUrl: url,
   });
@@ -29,23 +30,34 @@ const car = (status) => {
     return carFull;
   } else if (status === "notAvailable") {
     return carNotAvailable;
+  } else if (status === "pick") {
+    return carAvailable;
   }
 };
 
-const MovingMarker = ({ path, carId, status }) => {
-  const [position, setPosition] = useState(path[0]);
-  const { isPlay, sliderValue } = useSelector((state) => state.timeSlider);
+const MovingMarker = ({ carData, carId }) => {
   const dispatch = useDispatch();
+  const { isPlay, sliderValue } = useSelector((state) => state.timeSlider);
+  const path = removeConsecutiveDuplicates(
+    carData.map((i) => [...i.positions]).flat(1)
+  );
+
+  const [position, setPosition] = useState(path[0]);
+  const [status, setStatus] = useState("run");
+  const [cursor, setCursor] = useState(1);
 
   useEffect(() => {
-    let cursor = sliderValue;
+    // console.log(path);
+    // console.log(carData);
+  }, []);
+
+  useEffect(() => {
     if (isPlay) {
       const interval = setInterval(() => {
         if (cursor < path.length - 1) {
-          cursor += 1;
+          setCursor(cursor + 1);
           dispatch(setSliderValue(cursor));
           setPosition(path[cursor]);
-          console.log(path[cursor]);
         }
       }, 1000);
       return () => {
@@ -62,18 +74,20 @@ const MovingMarker = ({ path, carId, status }) => {
         duration={1000}
       >
         <Popup minWidth={90}>
-          <span>This is car</span>
+          <span>
+            Car No.{carId} at {path[cursor].lat}, {path[cursor].lng}
+          </span>
         </Popup>
         {carId < 10 ? (
           <Tooltip className="oneDigit" direction="right" permanent={true}>
-            <Typography fontSize={14} fontWeight={700} color={"black"}>
-              {/* {carId} */}
+            <Typography fontSize={12} fontWeight={700} color={"white"}>
+              {carId}
             </Typography>
           </Tooltip>
         ) : (
           <Tooltip className="twoDigit" direction="right" permanent={true}>
-            <Typography fontSize={14} fontWeight={700} color={"black"}>
-              {/* {carId} */}
+            <Typography fontSize={12} fontWeight={700} color={"white"}>
+              {carId}
             </Typography>
           </Tooltip>
         )}
