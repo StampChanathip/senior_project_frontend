@@ -7,6 +7,8 @@ import ImportForm from "./Components/ImportForm";
 import SideBarMenu from "./Components/SideBarMenu";
 import { Box } from "@mui/material";
 import NoFileText from "./Components/NoFileText";
+import path1 from "./MockData/path1.json";
+import path2 from "./MockData/path2.json";
 import mockData from "./MockData/mockData.json";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -18,6 +20,8 @@ function App() {
   const { excelData } = useSelector((state) => state.excelData);
   useEffect(() => {
     // dispatch(setExcelData(mockData));
+    // dispatch(setExcelData(path1));
+    // dispatch(setExcelData(path2));
   }, []);
 
   return (

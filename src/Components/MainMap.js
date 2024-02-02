@@ -8,6 +8,7 @@ import linkData from "../MockData/link.json";
 import MovingMarker from "./MovingMarker";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import { red } from "@mui/material/colors";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -15,12 +16,13 @@ const MainMap = () => {
   const [carsData, setCarsData] = useState([]);
 
   useEffect(() => {
-    // seperate each car into array of objects like mockData
-
     const cars = [
       1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
     ].map((i) => {
-      return { carId: i, data: [...excelData.filter((j) => j.carId == i)] };
+      return {
+        carId: i,
+        data: [...excelData.filter((j) => Number(j.carId) === i)],
+      };
     });
     setCarsData(cars);
   }, []);
@@ -46,8 +48,10 @@ const MainMap = () => {
         minZoom={14}
       >
         <TileLayer
-          attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
+          url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
+          // attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+          // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {carsData.filter((i) => i.data.length !== 0).length !== 0 &&
           carsData
@@ -59,7 +63,11 @@ const MainMap = () => {
             })}
 
         {/* <GeoJSON key={Math.random()} data={nodeData} /> */}
-        <GeoJSON key={Math.random()} data={linkData} />
+        {/* <GeoJSON
+          key={Math.random()}
+          data={linkData}
+          style={{ color: "#b3d9ff" }}
+        /> */}
       </MapContainer>
     </div>
   );
