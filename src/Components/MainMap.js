@@ -1,14 +1,14 @@
 import "../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { MapContainer, TileLayer, GeoJSON } from "react-leaflet";
+import { MapContainer, TileLayer, GeoJSON, Marker } from "react-leaflet";
 
 import nodeData from "../MockData/node.json";
 import linkData from "../MockData/link.json";
 
 import MovingMarker from "./MovingMarker";
+import PassengerDetails from "./PassengerDetails";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import { red } from "@mui/material/colors";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -16,9 +16,7 @@ const MainMap = () => {
   const [carsData, setCarsData] = useState([]);
 
   useEffect(() => {
-    const cars = [
-      1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20,
-    ].map((i) => {
+    const cars = Array.from(Array(20).keys()).map((i) => {
       return {
         carId: i,
         data: [...excelData.filter((j) => Number(j.carId) === i)],
@@ -29,7 +27,7 @@ const MainMap = () => {
 
   useEffect(() => {
     console.log(carsData);
-  }, [carsData]);
+  }, []);
 
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -50,8 +48,6 @@ const MainMap = () => {
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
           url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
-          // attribution='&copy; <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-          // url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
         />
         {carsData.filter((i) => i.data.length !== 0).length !== 0 &&
           carsData
@@ -63,11 +59,14 @@ const MainMap = () => {
             })}
 
         {/* <GeoJSON key={Math.random()} data={nodeData} /> */}
+        {/* <Marker position={{ lat: 13.735033, lng: 100.528689 }}></Marker> */}
         {/* <GeoJSON
           key={Math.random()}
           data={linkData}
           style={{ color: "#b3d9ff" }}
         /> */}
+
+        <PassengerDetails />
       </MapContainer>
     </div>
   );

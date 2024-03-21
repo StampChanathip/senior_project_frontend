@@ -42,3 +42,14 @@
   background: transparent;
   border: 0px;
 }
+.car-popup .leaflet-popup-content-wrapper {
+  background: #1e1e1e;
+  color: white;
+}
+.car-popup .leaflet-popup-content {
+  margin: 28px 12px;
+}
+
+.leaflet-popup-tip-container .leaflet-popup-tip {
+  background: #1e1e1e;
+}

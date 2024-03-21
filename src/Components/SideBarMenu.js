@@ -1,4 +1,3 @@
-import * as React from "react";
 import { styled } from "@mui/material/styles";
 import {
   Box,
@@ -10,18 +9,18 @@ import {
   ListItemButton,
   ListItemIcon,
   ListItemText,
+  Button,
+  Typography,
 } from "@mui/material";
 
 import MenuIcon from "@mui/icons-material/Menu";
 import ChevronLeftIcon from "@mui/icons-material/ChevronLeft";
 import FileUploadIcon from "@mui/icons-material/FileUpload";
 import DashboardIcon from "@mui/icons-material/Dashboard";
-import { uploadExcelFile } from "../Api/mapApi";
 
-import { useDispatch } from "react-redux";
-import { setExcelData } from "../Redux/excelDataSlice";
-import { setLoading } from "../Redux/preloaderSlice";
-import { setSliderValue } from "../Redux/timeSliderSlice";
+import { useSelector } from "react-redux";
+import { useState } from "react";
+import ImportDialog from "./ImportDialog";
 
 const drawerWidth = 240;
 
@@ -35,30 +34,78 @@ const DrawerHeader = styled("div")(({ theme }) => ({
 }));
 
 const SideBarMenu = () => {
-  const [open, setOpen] = React.useState(false);
-  const dispatch = useDispatch();
-
-  const handleUploadFile = async (e) => {
-    console.log("upload");
-    dispatch(setLoading(true));
-    if (!e.target.files) {
-      return;
-    }
-    const response = await uploadExcelFile(e.target.files[0]);
-    dispatch(setExcelData(response));
-    dispatch(setSliderValue(0));
-    dispatch(setLoading(false));
-  };
+  const [drawerOpen, setDrawerOpen] = useState(false);
+  const [dialogOpen, setDialogOpen] = useState(false);
+  const { excelData } = useSelector((state) => state.excelData);
 
   const handleDrawerOpen = () => {
-    setOpen(true);
+    setDrawerOpen(true);
   };
 
   const handleDrawerClose = () => {
-    setOpen(false);
+    setDrawerOpen(false);
   };
 
-  return (
+  return excelData.length === 0 ? (
+    <Box
+      sx={{
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        height: "100vh",
+        width: "20%",
+        color: "white",
+        backgroundColor: "#1E1E1E",
+        zIndex: 5000,
+      }}
+    >
+      <Box
+        sx={{
+          display: "flex",
+          flexDirection: "column",
+          alignItems: "center",
+          margin: "24px",
+          fontWeight: "bold",
+        }}
+      >
+        <Typography
+          sx={{
+            fontSize: "24px",
+            fontWeight: "bold",
+            textAlign: "center",
+            fontStyle: "Italic",
+          }}
+        >
+          Drag & Drop Microsoft Excel file here
+        </Typography>
+        <Typography sx={{ fontWeight: "bold", fontStyle: "Italic" }}>
+          (XLSX or XLS)
+        </Typography>
+      </Box>
+      <Button
+        variant="contained"
+        component="label"
+        sx={{
+          display: "flex",
+          flexDirection: "row",
+          alignItems: "center",
+          borderRadius: "32px",
+          cursor: "pointer",
+          paddingY: "10px",
+          paddingX: "32px",
+        }}
+        onClick={() => setDialogOpen(true)}
+      >
+        <Typography sx={{ fontSize: "18px", fontWeight: "700" }}>
+          Upload file
+        </Typography>
+      </Button>
+      <ImportDialog
+        open={dialogOpen}
+        handleClose={() => setDialogOpen(false)}
+      />
+    </Box>
+  ) : (
     <Box
       sx={{
         display: "flex",
@@ -77,7 +124,7 @@ const SideBarMenu = () => {
         onClick={handleDrawerOpen}
         edge="start"
         sx={{
-          ...(open && { display: "none" }),
+          ...(drawerOpen && { display: "none" }),
           color: "white",
           width: "100%",
           margin: "0px",
@@ -98,7 +145,7 @@ const SideBarMenu = () => {
         }}
         variant="persistent"
         anchor="left"
-        open={open}
+        open={drawerOpen}
       >
         <DrawerHeader>
           <IconButton onClick={handleDrawerClose} sx={{ color: "white" }}>
@@ -111,6 +158,7 @@ const SideBarMenu = () => {
             <ListItemButton
               variant="contained"
               component="label"
+              onClick={() => setDialogOpen(true)}
               sx={{
                 display: "flex",
                 flexDirection: "row",
@@ -119,13 +167,6 @@ const SideBarMenu = () => {
                 color: "white",
               }}
             >
-              <Box
-                component="input"
-                type="file"
-                hidden
-                name="excel_file"
-                onChange={handleUploadFile}
-              />
               <ListItemIcon sx={{ color: "white" }}>
                 <FileUploadIcon />
               </ListItemIcon>
@@ -141,6 +182,10 @@ const SideBarMenu = () => {
             </ListItemButton>
           </ListItem>
         </List>
+        <ImportDialog
+          open={dialogOpen}
+          handleClose={() => setDialogOpen(false)}
+        />
       </Drawer>
     </Box>
   );

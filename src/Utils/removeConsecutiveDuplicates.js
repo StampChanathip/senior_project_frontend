@@ -1,4 +1,5 @@
 const removeConsecutiveDuplicates = (arr) => {
+  // console.log(arr)
   const areEqual = (obj1, obj2) => {
     return obj1.lat === obj2.lat || obj2.lat === obj2.lng;
   };
@@ -12,7 +13,7 @@ const removeConsecutiveDuplicates = (arr) => {
     }
     lastObj = obj;
   }
-
+  // console.log("result=> ",result)
   return result;
 };
 
