@@ -3,11 +3,32 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsShowPassenger } from "../Redux/passDetailSlice";
 
-const PassengersDetail = ({ passengers, carId }) => {
+const waitedTimeParse = (time) => {
+  var m = Math.floor((time % 3600) / 60);
+  var s = Math.floor((time % 3600) % 60);
+
+  var mDisplay = m > 0 ? m + (m == 1 ? " min " : " min ") : "";
+  var sDisplay = s > 0 ? s + (s == 1 ? " sec" : " sec") : "";
+  return mDisplay + sDisplay;
+};
+
+const PassengersDetail = () => {
   const dispatch = useDispatch();
   const { isShowPassenger, passengerDetail } = useSelector(
     (state) => state.passengerDetail
   );
+  const passengers = [];
+  passengerDetail.detail.forEach((i) => {
+    if (i.amount > 1) {
+      const pass = [];
+      for (let j = 0; j < i.amount; j++) {
+        pass.push(i);
+      }
+      passengers.push(...pass);
+    } else {
+      passengers.push(i);
+    }
+  });
   return (
     <Slide direction="left" in={isShowPassenger} mountOnEnter unmountOnExit>
       <Box
@@ -67,7 +88,7 @@ const PassengersDetail = ({ passengers, carId }) => {
           }}
         >
           <Box sx={{ fontSize: "12px", width: "72px", textAlign: "center" }}>
-            Picking waiting time
+            Picking waited time
           </Box>
           <Box
             sx={{
@@ -92,7 +113,7 @@ const PassengersDetail = ({ passengers, carId }) => {
           </Box>
         </Box>
         {passengerDetail.detail &&
-          [1, 2, 3, 4, 5, 6].map((passenger,idx) => {
+          passengers.map((passenger, idx) => {
             return (
               <Box
                 key={idx}
@@ -128,7 +149,7 @@ const PassengersDetail = ({ passengers, carId }) => {
                     {passenger.id}
                   </Avatar>
                   <Box sx={{ fontSize: "12px" }}>
-                    {passenger.waitTime ?? 120} min
+                    {waitedTimeParse(passenger.waitedTime ?? 120)}
                   </Box>
                 </Box>
                 <Box
@@ -175,9 +196,7 @@ const PassengersDetail = ({ passengers, carId }) => {
                       }}
                     >
                       {passenger.nodeTo ? (
-                        <Box sx={{ fontSize: "14px" }}>
-                          {passenger.nodeFrom}
-                        </Box>
+                        <Box sx={{ fontSize: "14px" }}>{passenger.nodeTo}</Box>
                       ) : (
                         <Box sx={{ fontSize: "20px" }}>-</Box>
                       )}

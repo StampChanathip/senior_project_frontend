@@ -16,6 +16,7 @@
     "colorbrewer": "^1.5.6",
     "dotenv": "^16.3.2",
     "leaflet": "^1.9.4",
+    "leaflet-timedimension": "^1.1.1",
     "react": "^18.2.0",
     "react-dom": "^18.2.0",
     "react-hook-form": "^7.50.1",

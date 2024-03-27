@@ -180,7 +180,7 @@ const CarPopupContent = ({ currentCar }) => {
   );
 };
 
-const MovingMarker = ({ carData, carId, openPassDetail }) => {
+const MovingMarker = ({ carData, carId }) => {
   const dispatch = useDispatch();
   const { isPlay, sliderValue, playSpeed } = useSelector(
     (state) => state.timeSlider
@@ -191,14 +191,17 @@ const MovingMarker = ({ carData, carId, openPassDetail }) => {
 
   const [carCursor, setCarCursor] = useState(0);
   const [cursor, setCursor] = useState(1);
-  const [position, setPosition] = useState(carData[carCursor]["link"].coordinates[0]);
+  const [position, setPosition] = useState(
+    carData[carCursor]["link"].coordinates[0]
+  );
   const currentCar = carData[carCursor];
   const [status, setStatus] = useState("run");
-  // const status = currentCar.status
+  const [passengerChange, setPassengerChange] = useState(carData[carCursor]["passengerChange"])
 
   useEffect(() => {
-    console.log(status)
-  }, [status]);
+    // console.log(passengerChange)
+    // console.log(carData)
+  }, [passengerChange]);
 
   useEffect(() => {
     if (isPlay && carCursor < carData.length) {
@@ -208,6 +211,7 @@ const MovingMarker = ({ carData, carId, openPassDetail }) => {
           dispatch(setSliderValue(cursor));
           setPosition(currentCar["link"].coordinates[cursor]);
           setStatus(currentCar.status);
+          setPassengerChange(currentCar.passengerChange)
         }, 1000 / playSpeed);
         return () => clearInterval(interval);
       } else if (carCursor < carData.length - 1) {
@@ -226,16 +230,18 @@ const MovingMarker = ({ carData, carId, openPassDetail }) => {
         duration={1000}
       >
         <Popup minWidth={90} className="car-popup">
-          <CarPopupContent
-            currentCar={currentCar}
-            openPassengersDetail={openPassDetail}
-          />
+          <CarPopupContent currentCar={currentCar} />
         </Popup>
         {carId < 10 ? (
           <Tooltip className="oneDigit" direction="right" permanent={true}>
-            <Typography fontSize={12} fontWeight={700} color={"white"}>
-              {carId}
-            </Typography>
+            <Box sx={{display:"flex", flexDirection:"row"}}>
+              <Typography fontSize={12} fontWeight={700} color={"white"}>
+                {carId}
+              </Typography>
+              {passengerChange !== 0 && <Typography sx={{marginLeft:"12px"}} fontSize={12} fontWeight={700} color={"white"}>
+              {(passengerChange > 0) ? `+${passengerChange}` : passengerChange}
+              </Typography>}
+            </Box>
           </Tooltip>
         ) : (
           <Tooltip className="twoDigit" direction="right" permanent={true}>

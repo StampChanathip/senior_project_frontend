@@ -4,11 +4,13 @@ import { MapContainer, TileLayer, GeoJSON, Marker } from "react-leaflet";
 
 import nodeData from "../MockData/node.json";
 import linkData from "../MockData/link.json";
+import timeMock from "../MockData/timeMock.json"
 
 import MovingMarker from "./MovingMarker";
 import PassengerDetails from "./PassengerDetails";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
+import TimeDimension from "./TimeDimension";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -26,7 +28,7 @@ const MainMap = () => {
   }, []);
 
   useEffect(() => {
-    console.log(carsData);
+    // console.log(carsData);
   }, []);
 
   L.Icon.Default.mergeOptions({
@@ -37,11 +39,12 @@ const MainMap = () => {
     iconSize: [10, 15],
     shadowSize: [0, 0],
   });
-
+// [39.151222675648221, 34.199670805202523]
   return (
     <div className="leaflet-container">
       <MapContainer
         center={{ lat: 13.73539348650398, lng: 100.52880549483235 }}
+        // center={{ lat: 34.199670805202523, lng: 39.151222675648221 }}
         zoom={16}
         minZoom={14}
       >
@@ -49,6 +52,7 @@ const MainMap = () => {
           attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
           url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
         />
+        {/* <TimeDimension geoJson={timeMock}/> */}
         {carsData.filter((i) => i.data.length !== 0).length !== 0 &&
           carsData
             .filter((i) => i.data.length !== 0)

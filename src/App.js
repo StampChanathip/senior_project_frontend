@@ -38,8 +38,8 @@ function App() {
   });
   useEffect(() => {
     // dispatch(setExcelData(mockData));
-    // dispatch(setExcelData(path1));
-    dispatch(setExcelData(path2));
+    dispatch(setExcelData(path1));
+    // dispatch(setExcelData(path2));
     // console.log(excelData);
   }, []);
 
