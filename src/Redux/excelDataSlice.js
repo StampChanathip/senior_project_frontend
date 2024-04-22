@@ -2,6 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   excelData: [],
+  currentData: {}
 };
 
 export const excelDataSlice = createSlice({
@@ -11,9 +12,12 @@ export const excelDataSlice = createSlice({
     setExcelData: (state, action) => {
       state.excelData = action.payload;
     },
+    setCurrentData: (state, action) => {
+      state.currentData = action.payload;
+    },
   },
 });
 
-export const { excelData, setExcelData } = excelDataSlice.actions;
+export const { excelData, currentData, setExcelData, setCurrentData } = excelDataSlice.actions;
 
 export default excelDataSlice.reducer;

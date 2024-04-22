@@ -2,65 +2,20 @@ import L from "leaflet";
 import { useMap } from "react-leaflet";
 import "leaflet-timedimension";
 import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { setCarData } from "../Redux/carDataSlice";
 
-const TimeDimension = ({ geoJson }) => {
+import { useSelector } from "react-redux";
+import { setLinkData, setPermaLinkData } from "../Redux/linkDataSlice";
+import { findCarbyTime } from "../Utils/findCarObject";
+
+const TimeDimension = () => {
+  const dispatch = useDispatch();
   const map = useMap();
-  const icon = (url) =>
-    L.icon({
-      iconSize: [24, 24],
-      popupAnchor: [2, -20],
-      iconUrl: url,
-    });
+  const { excelData } = useSelector((state) => state.excelData);
+  const { allLinkData } = useSelector((state) => state.linkData);
 
   useEffect(() => {
-    const timeSeriesGeoJSON = {
-      features: [
-        {
-          type: "Feature",
-          id: -1549271008,
-          properties: {
-            id: 827793,
-            time: "2006-03-11T08:00:00",
-            insol: 61.73542,
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              [
-                [39.151222675648221, 34.199670805202523],
-                [39.151222675712766, 34.199675276071595],
-                [39.151228272367668, 34.199675276015682],
-                [39.151228272302838, 34.199670805146624],
-                [39.151222675648221, 34.199670805202523],
-              ],
-            ],
-          },
-        },
-        {
-          type: "Feature",
-          id: -1549271008,
-          properties: {
-            id: 827794,
-            time: "2006-03-11T09:00:00",
-            insol: 161.73542,
-          },
-          geometry: {
-            type: "Polygon",
-            coordinates: [
-              [
-                [39.151222675648221, 34.199670805202523],
-                [39.151222675712766, 34.199675276071595],
-                [39.151228272367668, 34.199675276015682],
-                [39.151228272302838, 34.199670805146624],
-                [39.151222675648221, 34.199670805202523],
-              ],
-            ],
-          },
-        },
-      ],
-      type: "FeatureCollection",
-    };
-
     const timeDimension = new L.TimeDimension({
       period: "PT1H",
     });
@@ -68,8 +23,8 @@ const TimeDimension = ({ geoJson }) => {
 
     const player = new L.TimeDimension.Player(
       {
-        transitionTime: 1000,
-        loop: false,
+        transitionTime: 3000,
+        loop: true,
         startOver: true,
       },
       timeDimension
@@ -78,10 +33,10 @@ const TimeDimension = ({ geoJson }) => {
       player: player,
       timeDimension: timeDimension,
       position: "bottomright",
-      autoPlay: true,
+      autoPlay: false,
       minSpeed: 1,
       speedStep: 1,
-      maxSpeed: 15,
+      maxSpeed: 2,
       timeSliderDragUpdate: true,
     };
     const timeDimensionControl = new L.Control.TimeDimension(
@@ -90,25 +45,56 @@ const TimeDimension = ({ geoJson }) => {
 
     map.addControl(timeDimensionControl);
 
-    const timeSeriesLayer = L.geoJSON(geoJson, {
-      pointToLayer: (feature, latLng) => {
-        if (feature.properties.hasOwnProperty("last")) {
-            return new L.Marker(latLng, {
-              icon: icon("Assets/Icon/Vehicle_Available.png"),
-            });
-        }
-        // return L.circleMarker(latLng);
-      },
-    });
+    timeDimension.setAvailableTimes(
+      excelData.map((obj) => obj.properties.time)
+    );
 
-    const geojson = L.timeDimension.layer.geoJson(timeSeriesLayer, {
-      updateTimeDimension: true,
-      duration: "PT2M",
-      updateTimeDimensionMode: "replace",
-      addlastPoint: true,
+    let prevCar = {};
+    timeDimension.on("timeload", (data) => {
+      const currentTimeCar = findCarbyTime(excelData, data.time);
+      const currentTimeLink = findCarbyTime(allLinkData, data.time);
+      currentTimeLink.forEach((link) => {
+        dispatch(setPermaLinkData(link.coordinates));
+      });
+      currentTimeCar.forEach((car) => {
+        if (Object.keys(prevCar).length === 0) {
+          prevCar[car.properties.carId] = car;
+        }
+        const prev = prevCar[car.properties.carId]
+        dispatch(
+          setCarData({
+            carId: car.properties.carId,
+            detail: car.properties,
+            position: car.geometry.coordinates[0],
+            link: car.geometry.coordinates,
+          })
+        );
+        if(prev){
+          dispatch(
+            setLinkData({
+              carId: car.properties.carId,
+              link: [
+                // prev.geometry ? prev.geometry.coordinates[0] : [],
+                // prev.geometry ? prev.geometry.coordinates[1] : [],
+                ...car.properties.passedLink,
+                car.geometry.coordinates[0],
+              ],
+            })
+          );
+        } else {
+          dispatch(
+            setLinkData({
+              carId: car.properties.carId,
+              link: [
+                // ...car.properties.passedLink,
+                car.geometry.coordinates[0],
+              ],
+            })
+          );
+        }
+        prevCar[car.properties.carId] = car
+      });
     });
-    geojson.addTo(map);
-    // timeSeriesLayer.addTo(map)   
   }, []);
 };
 

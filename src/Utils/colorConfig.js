@@ -1,0 +1,23 @@
+const style = { weight: "3", dashArray: "10, 10", dashOffset: "5"  };
+export const linkColor = {
+    '1': {...style, color: "#ff9999"},
+    '2': {...style, color: "#99ffd6"},
+    '3': {...style, color: "#ff6699"},
+    '4': {...style, color: "#d147a3"},
+    '5': {...style, color: "#ff9900"},
+    '6': {...style, color: "#336699"},
+    '7': {...style, color: "#0000cc"},
+    '8': {...style, color: "#6666ff"},
+    '9': {...style, color: "#6600cc"},
+    '10': {...style, color: "#669999"},
+    '11': {...style, color: "#339966"},
+    '12': {...style, color: "#80ff80"},
+    '13': {...style, color: "#80ffff"},
+    '14': {...style, color: "#99496c"},
+    '15': {...style, color: "#cccc00"},
+    '16': {...style, color: "#ffff00"},
+    '17': {...style, color: "#ffffcc"},
+    '18': {...style, color: "#ff0066"},
+    '19': {...style, color: "#ff0000"},
+    '20': {...style, color: "#800000"},
+};

@@ -12,7 +12,8 @@ import { uploadExcelFile } from "../Api/mapApi";
 import { useDispatch } from "react-redux";
 import { setExcelData } from "../Redux/excelDataSlice";
 import { setLoading } from "../Redux/preloaderSlice";
-import { setSliderValue } from "../Redux/timeSliderSlice";
+import { setAllLinkData } from "../Redux/linkDataSlice";
+import { resetCarData } from "../Redux/carDataSlice";
 
 export default function ImportDialog({ open, handleClose }) {
   const dispatch = useDispatch();
@@ -22,11 +23,11 @@ export default function ImportDialog({ open, handleClose }) {
 
   const submitForm = async (formData) => {
     dispatch(setLoading(true));
-    console.log(formData["excel_file"][0]);
 
     const response = await uploadExcelFile(formData["excel_file"][0]);
     dispatch(setExcelData(response));
-    dispatch(setSliderValue(0));
+    dispatch(setAllLinkData(response))
+    dispatch(resetCarData())
     dispatch(setLoading(false));
     handleClose();
   };
@@ -91,7 +92,7 @@ export default function ImportDialog({ open, handleClose }) {
                 </Typography>
                 <TextField
                   sx={{ width: "64px" }}
-                  defaultValue={3}
+                  defaultValue={4}
                   {...register("Charge Staion Number", { valueAsNumber: true })}
                 />
               </Box>
@@ -107,7 +108,7 @@ export default function ImportDialog({ open, handleClose }) {
                 <Typography>Number of Charging Slot</Typography>
                 <TextField
                   sx={{ width: "64px" }}
-                  defaultValue={0}
+                  defaultValue={4}
                   {...register("Charge Slot Number", { valueAsNumber: true })}
                 />
               </Box>
@@ -164,7 +165,7 @@ export default function ImportDialog({ open, handleClose }) {
                 <Typography>Max waiting time</Typography>
                 <TextField
                   sx={{ width: "64px" }}
-                  defaultValue={5}
+                  defaultValue={10}
                   type="number"
                   {...register("Max wait time", { valueAsNumber: true })}
                 />

@@ -63,3 +63,23 @@
 .leaflet-popup-tip-container .leaflet-popup-tip {
   background: #1e1e1e;
 }
+
+.charging-car-icon{
+  width: 32px;
+  height: 32px;
+}
+
+.leaflet-tooltip.charging-station-capacity:before{
+  background: transparent;
+  border: 0px;
+}
+
+.leaflet-tooltip.charging-station-capacity{
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: 16px;
+  top: 0px;
+}

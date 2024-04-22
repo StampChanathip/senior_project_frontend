@@ -2,7 +2,7 @@ import { createSlice } from "@reduxjs/toolkit";
 
 const initialState = {
   isShowPassenger: false,
-  passengerDetail: { carId: 0, detail: [] },
+  passengerDetail: { carId: 0, detail: [], time: new Date() },
 };
 
 export const passengerDetailSlice = createSlice({

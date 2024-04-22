@@ -2,6 +2,8 @@ import { Box, Avatar, Divider, Slide, IconButton } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsShowPassenger } from "../Redux/passDetailSlice";
+import { useEffect } from "react";
+import moment from "moment/moment";
 
 const waitedTimeParse = (time) => {
   var m = Math.floor((time % 3600) / 60);
@@ -29,6 +31,11 @@ const PassengersDetail = () => {
       passengers.push(i);
     }
   });
+  useEffect(() => {
+    if (passengerDetail.detail.length === 0) {
+      dispatch(setIsShowPassenger(false));
+    }
+  }, [passengerDetail]);
   return (
     <Slide direction="left" in={isShowPassenger} mountOnEnter unmountOnExit>
       <Box
@@ -38,7 +45,7 @@ const PassengersDetail = () => {
           position: "absolute",
           right: "0px",
           top: "0px",
-          width: "320px",
+          width: "360px",
           color: "#D9D9D9",
           backgroundColor: "#1E1E1E",
           borderBottomLeftRadius: "16px",
@@ -70,8 +77,14 @@ const PassengersDetail = () => {
           }}
         >
           <Box sx={{ fontSize: "16px" }}>Passenger Detail</Box>
-          <Box sx={{ fontSize: "14px" }}>
-            Vehicle No. {passengerDetail.carId}
+          <Box sx={{ display: "flex", flexDirection: "row" }}>
+            <Box sx={{ fontSize: "14px", marginRight: "12px" }}>
+              Time:
+              {moment(passengerDetail.time).subtract(7, "h").format("hh:mm:ss")}
+            </Box>
+            <Box sx={{ fontSize: "14px" }}>
+              Vehicle No. {passengerDetail.carId}
+            </Box>
           </Box>
         </Box>
         <Divider
@@ -79,39 +92,7 @@ const PassengersDetail = () => {
           color={"#D9D9D9"}
           sx={{ marginBottom: "10px", marginTop: "4px" }}
         />
-        <Box
-          sx={{
-            display: "flex",
-            flexDirection: "row",
-            justifyContent: "space-between",
-            alignItems: "center",
-          }}
-        >
-          <Box sx={{ fontSize: "12px", width: "72px", textAlign: "center" }}>
-            Picking waited time
-          </Box>
-          <Box
-            sx={{
-              display: "flex",
-              flexDirection: "column",
-              width: "65%",
-            }}
-          >
-            <Box
-              sx={{
-                display: "flex",
-                flexDirection: "row",
-                justifyContent: "space-between",
-                alignItems: "center",
-                paddingX: "16px",
-              }}
-            >
-              <Box sx={{ fontSize: "14px" }}>Picking</Box>
-              <Box sx={{ fontSize: "14px" }}>Dropping</Box>
-            </Box>
-            <Divider color={"#D9D9D9"} sx={{ marginTop: "4px" }} />
-          </Box>
-        </Box>
+
         {passengerDetail.detail &&
           passengers.map((passenger, idx) => {
             return (
@@ -130,7 +111,8 @@ const PassengersDetail = () => {
                     display: "flex",
                     flexDirection: "column",
                     fontSize: "12px",
-                    width: "72px",
+                    width: "84px",
+                    marginRight: "18px",
                     alignItems: "center",
                     justifyContent: "center",
                   }}
@@ -156,7 +138,7 @@ const PassengersDetail = () => {
                   sx={{
                     display: "flex",
                     flexDirection: "column",
-                    width: "65%",
+                    width: "80%",
                   }}
                 >
                   <Box
@@ -171,37 +153,40 @@ const PassengersDetail = () => {
                       sx={{
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
-                        minWidth: "90px",
+                        alignItems: "start",
+                        minWidth: "130px",
                       }}
                     >
                       {passenger.nodeFrom ? (
                         <Box sx={{ fontSize: "14px" }}>
-                          {passenger.nodeFrom}
+                          Origin: {passenger.nodeFrom}
                         </Box>
                       ) : (
                         <Box sx={{ fontSize: "20px" }}>-</Box>
                       )}
 
-                      <Box sx={{ fontSize: "14px" }}>
-                        {passenger.departTime}
+                      <Box sx={{ fontSize: "12px" }}>
+                        Pick Time: {passenger.pickTime}
                       </Box>
                     </Box>
+                    <Divider orientation="vertical" flexItem />
                     <Box
                       sx={{
                         display: "flex",
                         flexDirection: "column",
-                        alignItems: "center",
-                        minWidth: "90px",
+                        alignItems: "start",
+                        minWidth: "130px",
                       }}
                     >
                       {passenger.nodeTo ? (
-                        <Box sx={{ fontSize: "14px" }}>{passenger.nodeTo}</Box>
+                        <Box sx={{ fontSize: "14px" }}>
+                          Destination: {passenger.nodeTo}
+                        </Box>
                       ) : (
                         <Box sx={{ fontSize: "20px" }}>-</Box>
                       )}
-                      <Box sx={{ fontSize: "14px" }}>
-                        {passenger.arriveTime}
+                      <Box sx={{ fontSize: "12px" }}>
+                        Drop time: {passenger.dropTime}
                       </Box>
                     </Box>
                   </Box>
