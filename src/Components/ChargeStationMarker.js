@@ -10,7 +10,6 @@ import ElectricCarRoundedIcon from "@mui/icons-material/ElectricCarRounded";
 import {
   addStationHistory,
   setIsShowStation,
-  setStationDetail,
 } from "../Redux/stationDetailSlice";
 import ChargingStationDetail from "./ChargingStationDetail";
 
@@ -33,6 +32,7 @@ const stationIcon = (status) => {
 };
 
 const StationPopupContent = ({ stationData, stationId }) => {
+  console.log( stationId, stationData)
   return (
     <Box>
       <Box
@@ -148,25 +148,22 @@ const ChargeStationMarker = ({ station, stationId }) => {
   const lat = station.geometry.coordinates[1];
   const lng = station.geometry.coordinates[0];
   const { carData } = useSelector((state) => state.carData);
-  const { stationDetail, stationHistory } = useSelector(
+  const { stationHistory } = useSelector(
     (state) => state.stationData
   );
   const [stationData, setStationData] = useState([]);
+
   useEffect(() => {
     const cars = findCarbyPosition(carData, station.geometry.coordinates);
     setStationData(cars);
-    if (cars.length !== 0) {
-      dispatch(setStationDetail({ stationId: stationId, detail: cars }));
-    }
-  }, [carData]);
+  }, [carData, station.geometry.coordinates]);
 
   useEffect(() => {
-    // console.log(stationDetail[stationId])
+    // console.log(stationId, stationDetail[stationId])
     // console.log(stationHistory)
   }, [stationHistory]);
 
   const clickHandler = () => {
-    console.log('clikc')
     dispatch(setIsShowStation(true))
   }
 
@@ -187,7 +184,7 @@ const ChargeStationMarker = ({ station, stationId }) => {
       >
         <Popup minWidth={90} className="car-popup">
           <StationPopupContent
-            stationData={stationDetail[stationId]}
+            stationData={stationData}
             stationId={stationId}
           />
         </Popup>
@@ -196,7 +193,7 @@ const ChargeStationMarker = ({ station, stationId }) => {
           direction="right"
           permanent={true}
         >
-          {stationDetail[stationId] && stationDetail[stationId].length !== 0 && (
+          {stationData && stationData.length !== 0 && (
             <Box
               sx={{
                 display: "flex",

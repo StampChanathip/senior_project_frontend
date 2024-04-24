@@ -9,7 +9,7 @@ const stationPosition = [
 
 const initialState = {
   isShowStation: false,
-  stationDetail: { 1: [] },
+  stationDetail: { 1: [],2:[], 3:[], 4:[] },
   stationHistory: [],
 };
 
