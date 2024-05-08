@@ -5,7 +5,7 @@ import { setIsShowPassenger } from "../Redux/passDetailSlice";
 import { useEffect } from "react";
 import moment from "moment/moment";
 
-const waitedTimeParse = (time) => {
+export const waitedTimeParse = (time) => {
   var m = Math.floor((time % 3600) / 60);
   var s = Math.floor((time % 3600) % 60);
 

@@ -138,7 +138,7 @@ export default function ImportDialog({ open, handleClose }) {
                   {...register("Passenger Number", { valueAsNumber: true })}
                 />
               </Box>
-              <Box
+              {/* <Box
                 sx={{
                   display: "flex",
                   flexDirection: "row",
@@ -152,7 +152,7 @@ export default function ImportDialog({ open, handleClose }) {
                   defaultValue={0}
                   {...register("Node Number", { valueAsNumber: true })}
                 />
-              </Box>
+              </Box> */}
               <Box
                 sx={{
                   display: "flex",

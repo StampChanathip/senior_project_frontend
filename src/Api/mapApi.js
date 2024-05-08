@@ -7,6 +7,9 @@ const uploadExcelFile = async (file) => {
     const response = await axios.post("http://127.0.0.1:8000/", formData, {
       headers: { "Content-Type": "multipart/form-data" },
     });
+    const dashboard = await axios.post("http://127.0.0.1:8000/dashboard", formData, {
+      headers: { "Content-Type": "multipart/form-data" },
+    });
     return response.data.data;
   } catch (error) {
     console.log(error);

@@ -60,6 +60,11 @@
   margin: 28px 12px;
 }
 
+.link-popup .leaflet-popup-content-wrapper {
+  background: #1e1e1e;
+  color: white;
+}
+
 .leaflet-popup-tip-container .leaflet-popup-tip {
   background: #1e1e1e;
 }
@@ -82,4 +87,8 @@
   box-shadow: none;
   left: 16px;
   top: 0px;
+}
+
+a {
+  color: #FFF;
 }

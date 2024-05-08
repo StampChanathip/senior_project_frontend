@@ -1,16 +1,15 @@
 import "../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
-import { MapContainer, TileLayer, Polyline } from "react-leaflet";
+import { MapContainer, TileLayer, Polyline, Popup } from "react-leaflet";
 
 import chargeStation from "../MockData/chargingStation.json";
 
 import MovingMarker from "./MovingMarker";
 import PassengerDetails from "./PassengerDetails";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
 import TimeDimension from "./TimeDimension";
 import ChargeStationMarker from "./ChargeStationMarker";
-import timeDimension from "./TimeDimension";
 import mockLine from "../MockData/mockLine.json";
 import { linkColor } from "../Utils/colorConfig";
 import ChargingStationDetail from "./ChargingStationDetail";
@@ -32,8 +31,8 @@ const MainMap = () => {
   }, [excelData]);
 
   useEffect(() => {
-    // console.log(linkData);
-  }, [linkData])
+    console.log(carsData);
+  }, [carsData])
 
   const permaLinkOptions = {
     color: "#99ffd6",
@@ -79,13 +78,19 @@ const MainMap = () => {
                   />
                   <Polyline
                     key={`line ${idx}`}
-                    pathOptions={linkColor["19"]}
-                    
+                    pathOptions={linkColor[car.carId]}
+                    eventHandlers={{
+                      mouseover: (e) => {
+                        e.target.openPopup()
+                    },
+                    mouseout: (e) => {
+                      e.target.closePopup()
+                    }}}
                     positions={
                       linkData[car.carId] ? linkData[car.carId].link : []
                     }
                     zIndex={1}
-                  />
+                  ><Popup className="link-popup">Car {car.carId}</Popup></Polyline>
                 </>
               );
             })}

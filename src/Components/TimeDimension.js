@@ -53,9 +53,9 @@ const TimeDimension = () => {
     timeDimension.on("timeload", (data) => {
       const currentTimeCar = findCarbyTime(excelData, data.time);
       const currentTimeLink = findCarbyTime(allLinkData, data.time);
-      currentTimeLink.forEach((link) => {
-        dispatch(setPermaLinkData(link.coordinates));
-      });
+      // currentTimeLink.forEach((link) => {
+      //   dispatch(setPermaLinkData(link.coordinates));
+      // });
       currentTimeCar.forEach((car) => {
         if (Object.keys(prevCar).length === 0) {
           prevCar[car.properties.carId] = car;

@@ -44,9 +44,9 @@ function App() {
   });
 
   useEffect(() => {
-    dispatch(setExcelData(path1));
-    dispatch(setAllLinkData(path1))
-    dispatch(setStationHistory(path1))
+    // dispatch(setExcelData(path1));
+    // dispatch(setAllLinkData(path1))
+    // dispatch(setStationHistory(path1))
 
     dispatch(resetCarData())
     dispatch(clearStationHistory())

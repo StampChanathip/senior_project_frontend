@@ -21,6 +21,7 @@ import DashboardIcon from "@mui/icons-material/Dashboard";
 import { useSelector } from "react-redux";
 import { useState } from "react";
 import ImportDialog from "./ImportDialog";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 240;
 
@@ -174,11 +175,13 @@ const SideBarMenu = () => {
             </ListItemButton>
           </ListItem>
           <ListItem key={"Tool & Dashboard"} disablePadding>
-            <ListItemButton>
-              <ListItemIcon sx={{ color: "white" }}>
-                <DashboardIcon />
-              </ListItemIcon>
-              <ListItemText primary={"Tool & Dashboard"} />
+            <ListItemButton  sx={{display: "flex", flexDirection:"row", width:"180px"}}>
+              <Link to="/dashboard" style={{ textDecoration: 'none', display:"flex", flexDirection:"row" }}>
+                <ListItemIcon sx={{ color: "white" }}>
+                  <DashboardIcon />
+                </ListItemIcon>
+                <ListItemText primary={"Tool & Dashboard"} />
+              </Link>
             </ListItemButton>
           </ListItem>
         </List>
