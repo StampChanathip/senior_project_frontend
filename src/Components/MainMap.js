@@ -31,7 +31,7 @@ const MainMap = () => {
   }, [excelData]);
 
   useEffect(() => {
-    console.log(carsData);
+    // console.log(carsData);
   }, [carsData])
 
   const permaLinkOptions = {

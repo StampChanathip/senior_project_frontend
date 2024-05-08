@@ -10,6 +10,11 @@ export const linkDataSlice = createSlice({
   name: "linkData",
   initialState,
   reducers: {
+    resetLinkData: (state, action) => {
+      Array.from(Array(20).keys()).forEach((i) => {
+        state.linkData[String(i + 1)] = { link: [] }
+      })
+    },
     setLinkData: (state, action) => {
       state.linkData[action.payload.carId] = {
         link: action.payload.link,

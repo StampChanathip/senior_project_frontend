@@ -1,6 +1,6 @@
-const style = { weight: "3", dashArray: "10, 10", dashOffset: "5"  };
+const style = { weight: "4", dashArray: "10, 10", dashOffset: "5"  };
 export const linkColor = {
-    '1': {...style, color: "#ff9999"},
+    '1': {...style, color: "#ff0000"},
     '2': {...style, color: "#99ffd6"},
     '3': {...style, color: "#ff6699"},
     '4': {...style, color: "#d147a3"},
@@ -18,6 +18,6 @@ export const linkColor = {
     '16': {...style, color: "#ffff00"},
     '17': {...style, color: "#ffffcc"},
     '18': {...style, color: "#ff0066"},
-    '19': {...style, color: "#ff0000"},
+    '19': {...style, color: "#ff9999"},
     '20': {...style, color: "#800000"},
 };

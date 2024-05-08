@@ -3,22 +3,24 @@ import { useMap } from "react-leaflet";
 import "leaflet-timedimension";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { setCarData } from "../Redux/carDataSlice";
+import { resetCarData, setCarData } from "../Redux/carDataSlice";
 
 import { useSelector } from "react-redux";
 import { setLinkData, setPermaLinkData } from "../Redux/linkDataSlice";
 import { findCarbyTime } from "../Utils/findCarObject";
+
+export const timeDimension = new L.TimeDimension({
+  period: "PT1H",
+});
 
 const TimeDimension = () => {
   const dispatch = useDispatch();
   const map = useMap();
   const { excelData } = useSelector((state) => state.excelData);
   const { allLinkData } = useSelector((state) => state.linkData);
-
+ 
   useEffect(() => {
-    const timeDimension = new L.TimeDimension({
-      period: "PT1H",
-    });
+    dispatch(resetCarData())
     map.timeDimension = timeDimension;
 
     const player = new L.TimeDimension.Player(
@@ -37,7 +39,7 @@ const TimeDimension = () => {
       minSpeed: 1,
       speedStep: 1,
       maxSpeed: 2,
-      timeSliderDragUpdate: true,
+      timeSlider: false
     };
     const timeDimensionControl = new L.Control.TimeDimension(
       timeDimensionControlOptions
@@ -74,8 +76,6 @@ const TimeDimension = () => {
             setLinkData({
               carId: car.properties.carId,
               link: [
-                // prev.geometry ? prev.geometry.coordinates[0] : [],
-                // prev.geometry ? prev.geometry.coordinates[1] : [],
                 ...car.properties.passedLink,
                 car.geometry.coordinates[0],
               ],
@@ -86,7 +86,6 @@ const TimeDimension = () => {
             setLinkData({
               carId: car.properties.carId,
               link: [
-                // ...car.properties.passedLink,
                 car.geometry.coordinates[0],
               ],
             })
@@ -95,6 +94,10 @@ const TimeDimension = () => {
         prevCar[car.properties.carId] = car
       });
     });
+
+    timeDimension.on("", () => {
+      console.log('abort')
+    })
   }, []);
 };
 

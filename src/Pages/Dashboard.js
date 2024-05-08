@@ -14,6 +14,7 @@ import { Link } from "react-router-dom";
 import { getDashboardData } from "../Api/dashboardApi";
 import { waitedTimeParse } from "../Components/PassengerDetails";
 import HomeIcon from '@mui/icons-material/Home';
+import { timeDimension } from "../Components/TimeDimension";
 
 const DashboardPage = () => {
   const date = dayjs("2024-01-01T00:00:00");
@@ -55,7 +56,7 @@ const DashboardPage = () => {
   return (
     <Box sx={{ padding: "18px" }}>
       <Box sx={{ marginBottom: "24px" }}>
-        <Link to="/">
+        <Link to="/" onClick={() => timeDimension.start()}>
           <HomeIcon sx={{color:"black"}} fontSize={"large"}/>
         </Link>
       </Box>
@@ -241,7 +242,7 @@ const DashboardPage = () => {
                   {carData.chargeLap.length === 0 ? (
                     <Box>
                       <Typography fontSize={16} fontWeight={800}>
-                        No Charge Lap
+                        No Charge History
                       </Typography>
                     </Box>
                   ) : (
@@ -255,29 +256,33 @@ const DashboardPage = () => {
                           >
                             Charging Lap {chargeLap.lap}
                           </Typography>
+                          <Box sx={{
+                                display: "flex",
+                                flexDirection: "row",
+                              }}>
                           <Box
                             sx={{
-                              display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
-                            }}
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
                           >
                             <Typography mr={1}>Time Arrival:</Typography>
-                            <Typography fontSize={16}>
-                              {chargeLap.timeArrival}
-                            </Typography>
+                            <Typography mr={1}>Time Spent:</Typography>
+                            
                           </Box>
                           <Box
                             sx={{
                               display: "flex",
-                              flexDirection: "row",
-                              justifyContent: "space-between",
+                              flexDirection: "column",
                             }}
                           >
-                            <Typography mr={1}>Time Spent:</Typography>
+                            <Typography fontSize={16}>
+                              {chargeLap.timeArrival}
+                            </Typography>
                             <Typography fontSize={16}>
                               {timeParse(chargeLap.timeCharged)}
                             </Typography>
+                          </Box>
                           </Box>
                         </Box>
                       );

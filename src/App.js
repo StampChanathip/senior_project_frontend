@@ -44,12 +44,12 @@ function App() {
   });
 
   useEffect(() => {
+    // dispatch(resetCarData())
+    // dispatch(clearStationHistory())
+    
     // dispatch(setExcelData(path1));
     // dispatch(setAllLinkData(path1))
     // dispatch(setStationHistory(path1))
-
-    dispatch(resetCarData())
-    dispatch(clearStationHistory())
 
     dispatch(setExcelData(path2));
     dispatch(setAllLinkData(path2))
