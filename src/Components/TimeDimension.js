@@ -38,8 +38,11 @@ const TimeDimension = () => {
       position: "bottomright",
       autoPlay: false,
       minSpeed: 1,
-      speedStep: 1,
       maxSpeed: 2,
+      displayDate: false,
+      backwardButton: false,
+      forwardButton: false,
+      speedStep: 1,
       timeSlider: false,
     };
     const timeDimensionControl = new L.Control.TimeDimension(
@@ -91,9 +94,6 @@ const TimeDimension = () => {
       });
     });
 
-    timeDimension.on("", () => {
-      console.log("abort");
-    });
   }, []);
 };
 

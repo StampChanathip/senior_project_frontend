@@ -21,7 +21,7 @@ const ChargingStationDetail = () => {
   );
 
   useEffect(() => {
-    console.log(isShowStation)
+    // console.log(isShowStation)
   }, [isShowStation])
 
   return (

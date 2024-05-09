@@ -1,8 +1,9 @@
-import { Box, Avatar, Divider, Slide, IconButton } from "@mui/material";
+import { Box, Avatar, Divider, Slide, IconButton, Typography } from "@mui/material";
 import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsShowPassenger } from "../Redux/passDetailSlice";
 import { useEffect } from "react";
+import nodeName from "../MockData/nodeName.json"
 import moment from "moment/moment";
 
 export const waitedTimeParse = (time) => {
@@ -45,7 +46,7 @@ const PassengersDetail = () => {
           position: "absolute",
           right: "0px",
           top: "0px",
-          width: "360px",
+          width: "450px",
           color: "#D9D9D9",
           backgroundColor: "#1E1E1E",
           borderBottomLeftRadius: "16px",
@@ -104,6 +105,7 @@ const PassengersDetail = () => {
                   justifyContent: "space-between",
                   alignItems: "center",
                   marginY: "6px",
+                  height:"80px"
                 }}
               >
                 <Box
@@ -154,12 +156,14 @@ const PassengersDetail = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "start",
-                        minWidth: "130px",
+                        width: "160px",
+                        height:"100%"
                       }}
                     >
                       {passenger.nodeFrom ? (
-                        <Box sx={{ fontSize: "14px" }}>
-                          Origin: {passenger.nodeFrom}
+                        <Box sx={{display:"flex", flexDirection:"column" }}>
+                          <Typography fontSize={"16px"} fontWeight={800}>Origin: </Typography>
+                          <Typography fontSize={"14px"}>{nodeName[passenger.nodeFrom]}</Typography>
                         </Box>
                       ) : (
                         <Box sx={{ fontSize: "20px" }}>-</Box>
@@ -175,13 +179,16 @@ const PassengersDetail = () => {
                         display: "flex",
                         flexDirection: "column",
                         alignItems: "start",
-                        minWidth: "130px",
+                        justifyContent:"start",
+                        width: "160px",
+                        height:"100%"
                       }}
                     >
                       {passenger.nodeTo ? (
-                        <Box sx={{ fontSize: "14px" }}>
-                          Destination: {passenger.nodeTo}
-                        </Box>
+                        <Box sx={{display:"flex", flexDirection:"column" }}>
+                        <Typography fontSize={"16px"} fontWeight={800}>Destination: </Typography>
+                        <Typography fontSize={"14px"}>{nodeName[passenger.nodeTo]}</Typography>
+                      </Box>
                       ) : (
                         <Box sx={{ fontSize: "20px" }}>-</Box>
                       )}

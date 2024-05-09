@@ -85,6 +85,9 @@ const MovingMarker = ({ carId }) => {
     }
   }, [cursor]);
 
+  useEffect(() => {
+    // console.log(carId)
+  })
 
   return (
     <Box sx={{ zIndex: 2000, position: "relative" }}>

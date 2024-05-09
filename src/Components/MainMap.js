@@ -8,12 +8,13 @@ import MovingMarker from "./MovingMarker";
 import PassengerDetails from "./PassengerDetails";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import TimeDimension from "./TimeDimension";
+import TimeDimension, { timeDimension } from "./TimeDimension";
 import ChargeStationMarker from "./ChargeStationMarker";
 import mockLine from "../MockData/mockLine.json";
 import { linkColor } from "../Utils/colorConfig";
 import ChargingStationDetail from "./ChargingStationDetail";
-import { Button } from "@mui/material";
+import { Box, Button, Typography } from "@mui/material";
+import TimeDisplay from "./TimeDisplay";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -32,15 +33,13 @@ const MainMap = () => {
   }, [excelData]);
 
   useEffect(() => {
-    // console.log(carsData);
+    console.log(carsData);
   }, [carsData])
 
   const permaLinkOptions = {
     color: "#99ffd6",
     weight: "4"
   };
-
-
 
   L.Icon.Default.mergeOptions({
     iconRetinaUrl: require("leaflet/dist/images/marker-icon-2x.png"),
@@ -55,14 +54,15 @@ const MainMap = () => {
       <MapContainer
         center={{ lat: 13.73539348650398, lng: 100.52880549483235 }}
         zoom={16}
+        zoomControl={false}
         minZoom={14}
       >
         <TileLayer
           attribution='&copy; <a href="https://stadiamaps.com/" target="_blank">Stadia Maps</a>, &copy; <a href="https://openmaptiles.org/" target="_blank">OpenMapTiles</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank">OpenStreetMap</a>'
           url="https://tiles.stadiamaps.com/tiles/alidade_smooth_dark/{z}/{x}/{y}{r}.png"
         />
-
         <TimeDimension />
+        <TimeDisplay />
         <Polyline
           positions={permaLinkData}
           pathOptions={permaLinkOptions}
@@ -71,7 +71,7 @@ const MainMap = () => {
           carsData
             .map((car, idx) => {
               return (
-                <>
+                <Box>
                   <MovingMarker
                     key={idx}
                     currentCarData={car}
@@ -79,7 +79,7 @@ const MainMap = () => {
                   />
                   <Polyline
                     key={`line ${idx}`}
-                    pathOptions={linkColor[car.carId]}
+                    pathOptions={linkColor["1"]}
                     eventHandlers={{
                       mouseover: (e) => {
                         e.target.openPopup()
@@ -92,7 +92,7 @@ const MainMap = () => {
                     }
                     zIndex={1}
                   ><Popup className="link-popup">Car {car.carId}</Popup></Polyline>
-                </>
+                </Box>
               );
             })}
         

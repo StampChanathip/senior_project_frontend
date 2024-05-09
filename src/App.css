@@ -92,3 +92,21 @@
 a {
   color: #FFF;
 }
+
+.info.legend.leaflet-control{
+  margin-left: 64px;
+}
+
+.info {
+  padding: 8px 20px;
+  font-size: 32px;
+  background: white;
+  border-radius: 5px;
+  width: fit-content;
+}
+
+.legend {
+  text-align: left;
+  line-height: 18px;
+  color: #555;
+}
