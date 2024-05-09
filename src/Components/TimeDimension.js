@@ -49,7 +49,7 @@ const TimeDimension = () => {
       timeDimensionControlOptions
     );
 
-    map.addControl(timeDimensionControl);
+    // map.addControl(timeDimensionControl);
 
     timeDimension.setAvailableTimes(
       excelData.map((obj) => obj.properties.time)

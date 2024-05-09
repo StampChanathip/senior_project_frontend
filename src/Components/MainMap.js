@@ -15,6 +15,7 @@ import { linkColor } from "../Utils/colorConfig";
 import ChargingStationDetail from "./ChargingStationDetail";
 import { Box, Button, Typography } from "@mui/material";
 import TimeDisplay from "./TimeDisplay";
+import TimePlayer from "./TimePlayer";
 
 const MainMap = () => {
   delete L.Icon.Default.prototype._getIconUrl;
@@ -63,6 +64,7 @@ const MainMap = () => {
         />
         <TimeDimension />
         <TimeDisplay />
+        <TimePlayer/>
         <Polyline
           positions={permaLinkData}
           pathOptions={permaLinkOptions}

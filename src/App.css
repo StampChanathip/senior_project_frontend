@@ -97,16 +97,26 @@ a {
   margin-left: 64px;
 }
 
+.timeControl.leaflet-control{
+  cursor: pointer;
+}
+
 .info {
   padding: 8px 20px;
-  font-size: 32px;
   background: white;
-  border-radius: 5px;
+  border-radius: 16px;
   width: fit-content;
+  
 }
 
 .legend {
   text-align: left;
   line-height: 18px;
-  color: #555;
+  font-size: 32px;
+  background-color: #1e1e1e;
+  color: #d9d9d9;
+}
+
+.timeControl{
+  font-size: 18px;
 }
