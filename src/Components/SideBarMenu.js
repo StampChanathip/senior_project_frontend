@@ -22,7 +22,7 @@ import { useSelector } from "react-redux";
 import { useState } from "react";
 import ImportDialog from "./ImportDialog";
 import { Link } from "react-router-dom";
-import { timeDimension } from "./TimeDimension";
+import { player, timeDimension } from "./TimeDimension";
 
 const drawerWidth = 240;
 
@@ -177,9 +177,7 @@ const SideBarMenu = () => {
           </ListItem>
           <ListItem key={"Tool & Dashboard"} disablePadding>
             <ListItemButton  sx={{display: "flex", flexDirection:"row", width:"180px"}}>
-              <Link to="/dashboard" style={{ textDecoration: 'none', display:"flex", flexDirection:"row" }} onClick={() => {
-                timeDimension.stop()
-              }}>
+              <Link to="/dashboard" style={{ textDecoration: 'none', display:"flex", flexDirection:"row" }}>
                 <ListItemIcon sx={{ color: "white" }}>
                   <DashboardIcon />
                 </ListItemIcon>

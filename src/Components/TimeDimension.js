@@ -14,6 +14,15 @@ export const timeDimension = new L.TimeDimension({
   period: "PT1H",
 });
 
+export const player = new L.TimeDimension.Player(
+  {
+    transitionTime: 3000,
+    loop: true,
+    startOver: true,
+  },
+  timeDimension
+);
+
 const TimeDimension = () => {
   const dispatch = useDispatch();
   const map = useMap();
@@ -21,17 +30,8 @@ const TimeDimension = () => {
   const { allLinkData } = useSelector((state) => state.linkData);
 
   useEffect(() => {
-    dispatch(resetCarData());
     map.timeDimension = timeDimension;
 
-    const player = new L.TimeDimension.Player(
-      {
-        transitionTime: 3000,
-        loop: true,
-        startOver: true,
-      },
-      timeDimension
-    );
     const timeDimensionControlOptions = {
       player: player,
       timeDimension: timeDimension,
@@ -59,9 +59,9 @@ const TimeDimension = () => {
     timeDimension.on("timeload", (data) => {
       const currentTimeCar = findCarbyTime(excelData, data.time);
       const currentTimeLink = findCarbyTime(allLinkData, data.time);
-      // currentTimeLink.forEach((link) => {
-      //   dispatch(setPermaLinkData(link.coordinates));
-      // });
+      currentTimeLink.forEach((link) => {
+        dispatch(setPermaLinkData(link.coordinates));
+      });
       currentTimeCar.forEach((car) => {
         if (Object.keys(prevCar).length === 0) {
           prevCar[car.properties.carId] = car;

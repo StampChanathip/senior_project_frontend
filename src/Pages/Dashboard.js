@@ -14,7 +14,7 @@ import { Link } from "react-router-dom";
 import { getDashboardData } from "../Api/dashboardApi";
 import { waitedTimeParse } from "../Components/PassengerDetails";
 import HomeIcon from "@mui/icons-material/Home";
-import { timeDimension } from "../Components/TimeDimension";
+import { player, timeDimension } from "../Components/TimeDimension";
 
 const DashboardPage = () => {
   const date = dayjs("2024-01-01T00:00:00");
@@ -56,7 +56,7 @@ const DashboardPage = () => {
   return (
     <Box sx={{ padding: "32px 18px", backgroundColor: "#1E1E1E" }}>
       <Box sx={{ display: "flex", flexDirection: "row", marginBottom: "24px" }}>
-        <Link to="/" onClick={() => timeDimension.start()}>
+        <Link to="/">
           <HomeIcon sx={{ color: "#D9D9D9" }} fontSize={"large"} />
         </Link>
         <Box

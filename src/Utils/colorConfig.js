@@ -1,4 +1,4 @@
-const style = { weight: "4", dashArray: "10, 10", dashOffset: "5"  };
+const style = { weight: "3", dashArray: "10, 10", dashOffset: "5"  };
 export const linkColor = {
     '1': {...style, color: "#ff0000"},
     '2': {...style, color: "#99ffd6"},

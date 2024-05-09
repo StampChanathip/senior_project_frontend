@@ -50,12 +50,16 @@ function App() {
     const fetchData = async() => {
       dispatch(setLoading(true));
       const data = await getCarDetails()
-      data && dispatch(setExcelData(data))
+      if(data){
+        dispatch(setExcelData(data))
+        dispatch(setAllLinkData(data))
+      }
       dispatch(setLoading(false));
     }
 
     // fetchData()
     dispatch(setExcelData(path2))
+    dispatch(setAllLinkData(path2))
   }, []);
 
   return (
