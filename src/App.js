@@ -7,6 +7,7 @@ import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NoFileText from "./Components/NoFileText";
 import path1 from "./MockData/path1.json";
 import path2 from "./MockData/path2.json";
+import { setLoading } from "./Redux/preloaderSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
@@ -14,6 +15,7 @@ import { setExcelData } from "./Redux/excelDataSlice";
 import { setAllLinkData } from "./Redux/linkDataSlice";
 import { resetCarData } from "./Redux/carDataSlice";
 import { clearStationHistory, setStationHistory } from "./Redux/stationDetailSlice";
+import { getCarDetails } from "./Api/mapApi";
 
 function App() {
   const queryString = window.location.search;
@@ -44,16 +46,17 @@ function App() {
   });
 
   useEffect(() => {
-    // dispatch(resetCarData())
-    // dispatch(clearStationHistory())
-    
-    // dispatch(setExcelData(path1));
-    // dispatch(setAllLinkData(path1))
-    // dispatch(setStationHistory(path1))
+    const fetchData = async() => {
+      dispatch(setLoading(true));
+      const data = await getCarDetails()
+      data && dispatch(setExcelData(data))
+      dispatch(setLoading(false));
+    }
 
-    dispatch(setExcelData(path2));
-    dispatch(setAllLinkData(path2))
-    dispatch(setStationHistory(path2))
+    fetchData()
+    // dispatch(setExcelData(path2));
+    // dispatch(setAllLinkData(path2))
+    // dispatch(setStationHistory(path2))
   }, []);
 
   return (
