@@ -13,7 +13,7 @@ import SideBarMenu from "../Components/SideBarMenu";
 import { Link } from "react-router-dom";
 import { getDashboardData } from "../Api/dashboardApi";
 import { waitedTimeParse } from "../Components/PassengerDetails";
-import HomeIcon from '@mui/icons-material/Home';
+import HomeIcon from "@mui/icons-material/Home";
 import { timeDimension } from "../Components/TimeDimension";
 
 const DashboardPage = () => {
@@ -54,23 +54,45 @@ const DashboardPage = () => {
   };
 
   return (
-    <Box sx={{ padding: "18px" }}>
-      <Box sx={{ marginBottom: "24px" }}>
+    <Box sx={{ padding: "32px 18px", backgroundColor: "#1E1E1E" }}>
+      <Box sx={{ display: "flex", flexDirection: "row", marginBottom: "24px" }}>
         <Link to="/" onClick={() => timeDimension.start()}>
-          <HomeIcon sx={{color:"black"}} fontSize={"large"}/>
+          <HomeIcon sx={{ color: "#D9D9D9" }} fontSize={"large"} />
         </Link>
-      </Box>
-      {dashboardData && (
-        <Box>
-          <Box sx={{display:"flex", flexDirection:"row", width:"100%", justifyContent:"flex-end"}}>
-            <FormControl sx={{width:"164px"}}>
-              <InputLabel id="demo-simple-select-label">CarId</InputLabel>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "row",
+            width: "100%",
+            justifyContent: "flex-end",
+          }}
+        >
+          {dashboardData && (
+            <FormControl sx={{ width: "164px" }}>
+              <Typography
+                sx={{ color: "#D9D9D9", "&.Mui-focused": { color: "#D9D9D9" } }}
+              >
+                Car Id
+              </Typography>
               <Select
-                labelId="demo-simple-select-label"
                 id="demo-simple-select"
                 value={carId}
-                label="Car"
                 onChange={handleChange}
+                sx={{
+                  color: "#D9D9D9",
+                  ".MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#D9D9D9",
+                  },
+                  "&.Mui-focused .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#D9D9D9",
+                  },
+                  "&:hover .MuiOutlinedInput-notchedOutline": {
+                    borderColor: "#D9D9D9",
+                  },
+                  ".MuiSvgIcon-root ": {
+                    fill: "#D9D9D9",
+                  },
+                }}
               >
                 {dashboardData.map((data, i) => {
                   return (
@@ -81,13 +103,17 @@ const DashboardPage = () => {
                 })}
               </Select>
             </FormControl>
-          </Box>
-          <Typography fontSize={24}>
+          )}
+        </Box>
+      </Box>
+      {dashboardData && (
+        <Box>
+          <Typography fontSize={24} color={"#D9D9D9"}>
             Vehicle {carData.carId} Data Summary
           </Typography>
           {carData.length !== 0 && (
             <Box
-              sx={{ display: "flex", flexDirection: "column", rowGap: "8px" }}
+              sx={{ display: "flex", flexDirection: "column", rowGap: "16px" }}
             >
               <Box
                 sx={{
@@ -163,10 +189,10 @@ const DashboardPage = () => {
                     fontWeight={800}
                     sx={{ marginBottom: "8px", textAlign: "center" }}
                   >
-                    Total Service Length
+                    Total Post Travel Time
                   </Typography>
                   <Typography fontSize={16}>
-                    {Math.round(carData.totalServiceLength * 100) / 100} Km
+                    {timeParse(carData.totalPostTravelTime)}
                   </Typography>
                 </Box>
                 <Box
@@ -235,7 +261,6 @@ const DashboardPage = () => {
                     padding: "8px",
                     backgroundColor: "#D9D9D9",
                     width: "264px",
-                    // height: "132px",
                     borderRadius: "24px",
                   }}
                 >
@@ -256,33 +281,34 @@ const DashboardPage = () => {
                           >
                             Charging Lap {chargeLap.lap}
                           </Typography>
-                          <Box sx={{
-                                display: "flex",
-                                flexDirection: "row",
-                              }}>
-                          <Box
-                            sx={{
-                                display: "flex",
-                                flexDirection: "column",
-                              }}
-                          >
-                            <Typography mr={1}>Time Arrival:</Typography>
-                            <Typography mr={1}>Time Spent:</Typography>
-                            
-                          </Box>
                           <Box
                             sx={{
                               display: "flex",
-                              flexDirection: "column",
+                              flexDirection: "row",
                             }}
                           >
-                            <Typography fontSize={16}>
-                              {chargeLap.timeArrival}
-                            </Typography>
-                            <Typography fontSize={16}>
-                              {timeParse(chargeLap.timeCharged)}
-                            </Typography>
-                          </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Typography mr={1}>Time Arrival:</Typography>
+                              <Typography mr={1}>Time Spent:</Typography>
+                            </Box>
+                            <Box
+                              sx={{
+                                display: "flex",
+                                flexDirection: "column",
+                              }}
+                            >
+                              <Typography fontSize={16}>
+                                {chargeLap.timeArrival}
+                              </Typography>
+                              <Typography fontSize={16}>
+                                {timeParse(chargeLap.timeCharged)}
+                              </Typography>
+                            </Box>
                           </Box>
                         </Box>
                       );
@@ -292,10 +318,40 @@ const DashboardPage = () => {
               </Box>
             </Box>
           )}
-          <Typography fontSize={24}>
-            Vehicle {carData.carId} Passenger Amount by Time
+          <Typography fontSize={24} color={"#D9D9D9"}>
+            Vehicle {carData.carId} Passengers Amount by Time
           </Typography>
           <LineChart
+            sx={{
+              "& .MuiChartsAxis-left .MuiChartsAxis-tick": {
+                strokeWidth: "2",
+                stroke: "#D9D9D9",
+              },
+              "& .MuiChartsAxis-bottom .MuiChartsAxis-tick": {
+                strokeWidth: "2",
+                stroke: "#D9D9D9",
+              },
+              "& .MuiChartsAxisHighlight-root": {
+                strokeWidth: "2",
+                stroke: "#D9D9D9",
+              },
+              "& .MuiChartsAxis-left .MuiChartsAxis-line": {
+                stroke: "#D9D9D9",
+                strokeWidth: 2,
+              },
+              "& .MuiChartsAxis-bottom .MuiChartsAxis-line": {
+                stroke: "#D9D9D9",
+                strokeWidth: 2,
+              },
+              "& .MuiChartsAxis-left .MuiChartsAxis-tickLabel": {
+                strokeWidth: "2",
+                fill: "#D9D9D9",
+              },
+              "& .MuiChartsAxis-bottom .MuiChartsAxis-tickLabel": {
+                strokeWidth: "0.4",
+                fill: "#D9D9D9",
+              },
+            }}
             xAxis={[
               {
                 scaleType: "utc",
@@ -316,6 +372,7 @@ const DashboardPage = () => {
             series={[
               {
                 data: passengerData.map((value) => value.passengerCount),
+                color: "#d9d9d9",
               },
             ]}
             width={1500}
