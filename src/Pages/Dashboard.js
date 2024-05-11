@@ -171,30 +171,7 @@ const DashboardPage = () => {
                     {Math.round(carData.totalEmptyTripLength * 100) / 100} Km
                   </Typography>
                 </Box>
-                <Box
-                  sx={{
-                    display: "flex",
-                    flexDirection: "column",
-                    justifyContent: "center",
-                    alignItems: "center",
-                    padding: "8px",
-                    backgroundColor: "#D9D9D9",
-                    width: "132px",
-                    height: "132px",
-                    borderRadius: "24px",
-                  }}
-                >
-                  <Typography
-                    fontSize={16}
-                    fontWeight={800}
-                    sx={{ marginBottom: "8px", textAlign: "center" }}
-                  >
-                    Total Post Travel Time
-                  </Typography>
-                  <Typography fontSize={16}>
-                    {timeParse(carData.totalPostTravelTime)}
-                  </Typography>
-                </Box>
+                
                 <Box
                   sx={{
                     display: "flex",
@@ -217,6 +194,30 @@ const DashboardPage = () => {
                   </Typography>
                   <Typography fontSize={16}>
                     {Math.round(carData.totalServiceLength * 100) / 100} Km
+                  </Typography>
+                </Box>
+                <Box
+                  sx={{
+                    display: "flex",
+                    flexDirection: "column",
+                    justifyContent: "center",
+                    alignItems: "center",
+                    padding: "8px",
+                    backgroundColor: "#D9D9D9",
+                    width: "132px",
+                    height: "132px",
+                    borderRadius: "24px",
+                  }}
+                >
+                  <Typography
+                    fontSize={16}
+                    fontWeight={800}
+                    sx={{ marginBottom: "8px", textAlign: "center" }}
+                  >
+                    Total Service Time
+                  </Typography>
+                  <Typography fontSize={16}>
+                    {timeParse(carData.totalPostTravelTime)}
                   </Typography>
                 </Box>
               </Box>
