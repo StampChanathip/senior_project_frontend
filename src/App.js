@@ -5,17 +5,13 @@ import ScreenWrapper from "./Components/ScreenWrapper";
 import SideBarMenu from "./Components/SideBarMenu";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NoFileText from "./Components/NoFileText";
-import path1 from "./MockData/path1.json";
-import path2 from "./MockData/path2.json";
-import nodeIndex from "./MockData/nodeIndex.json";
+// import path2 from "./MockData/path2.json";
 import { setLoading } from "./Redux/preloaderSlice";
 
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect } from "react";
 import { setExcelData } from "./Redux/excelDataSlice";
 import { setAllLinkData } from "./Redux/linkDataSlice";
-import { resetCarData } from "./Redux/carDataSlice";
-import { clearStationHistory, setStationHistory } from "./Redux/stationDetailSlice";
 import { getCarDetails } from "./Api/mapApi";
 
 function App() {
@@ -57,9 +53,9 @@ function App() {
       dispatch(setLoading(false));
     }
 
-    // fetchData()
-    dispatch(setExcelData(path2))
-    dispatch(setAllLinkData(path2))
+    fetchData()
+    // dispatch(setExcelData(path2))
+    // dispatch(setAllLinkData(path2))
   }, []);
 
   return (
