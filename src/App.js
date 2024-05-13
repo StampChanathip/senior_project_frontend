@@ -5,7 +5,7 @@ import ScreenWrapper from "./Components/ScreenWrapper";
 import SideBarMenu from "./Components/SideBarMenu";
 import { Box, ThemeProvider, createTheme } from "@mui/material";
 import NoFileText from "./Components/NoFileText";
-// import path2 from "./MockData/path2.json";
+import path2 from "./MockData/path2.json";
 import { setLoading } from "./Redux/preloaderSlice";
 
 import { useDispatch, useSelector } from "react-redux";
@@ -53,9 +53,9 @@ function App() {
       dispatch(setLoading(false));
     }
 
-    fetchData()
-    // dispatch(setExcelData(path2))
-    // dispatch(setAllLinkData(path2))
+    // fetchData()
+    dispatch(setExcelData(path2))
+    dispatch(setAllLinkData(path2))
   }, []);
 
   return (

@@ -1,20 +1,14 @@
-import { Box, Slider, Typography } from "@mui/material";
+import { Box, Typography } from "@mui/material";
 import { LineChart } from "@mui/x-charts/LineChart";
-import dashboardMock from "../MockData/dashboardMock.json";
-import { linkColor } from "../Utils/colorConfig";
-import moment from "moment";
 import dayjs from "dayjs";
-import InputLabel from "@mui/material/InputLabel";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import { useEffect, useState } from "react";
-import SideBarMenu from "../Components/SideBarMenu";
 import { Link } from "react-router-dom";
 import { getChargeHistoryData, getDashboardData } from "../Api/dashboardApi";
 import { waitedTimeParse } from "../Components/PassengerDetails";
 import HomeIcon from "@mui/icons-material/Home";
-import { player, timeDimension } from "../Components/TimeDimension";
 
 const chartStyle = {
   "& .MuiChartsAxis-left .MuiChartsAxis-tick": {
@@ -52,6 +46,13 @@ const chartStyle = {
     fill: "#D9D9D9 !important",
   },
 };
+
+const stationMapping = {
+  99821: "station1",
+  99827: "station2",
+  99828: "station3",
+  99829: "station4",
+}
 
 const DashboardPage = () => {
   const date = dayjs("2024-01-01T00:00:00");
@@ -429,8 +430,9 @@ const DashboardPage = () => {
                                   textAlign: "center",
                                 }}
                               >
-                                Charging Lap {chargeLap.lap}
+                                Charging Lap {chargeLap.lap} at {stationMapping[chargeLap.stationId]}
                               </Typography>
+                              <Typography mr={1}></Typography>
                               <Box
                                 sx={{
                                   display: "flex",
@@ -443,6 +445,7 @@ const DashboardPage = () => {
                                     flexDirection: "column",
                                   }}
                                 >
+                                  
                                   <Typography mr={1}>Time Arrival:</Typography>
                                   <Typography mr={1}>Time Spent:</Typography>
                                 </Box>
@@ -458,6 +461,7 @@ const DashboardPage = () => {
                                   <Typography fontSize={16}>
                                     {timeParse(chargeLap.timeCharged)}
                                   </Typography>
+                                  
                                 </Box>
                               </Box>
                             </Box>

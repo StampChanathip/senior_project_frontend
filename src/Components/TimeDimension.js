@@ -16,7 +16,7 @@ export const timeDimension = new L.TimeDimension({
 
 export const player = new L.TimeDimension.Player(
   {
-    transitionTime: 3000,
+    transitionTime: 1000,
     loop: true,
     startOver: true,
   },
@@ -57,11 +57,14 @@ const TimeDimension = () => {
 
     let prevCar = {};
     timeDimension.on("timeload", (data) => {
+      if(data.target._currentTimeIndex === 1 || data.target._currentTimeIndex === data.target._availableTimes.length){
+        console.log(new Date())
+      }
       const currentTimeCar = findCarbyTime(excelData, data.time);
       const currentTimeLink = findCarbyTime(allLinkData, data.time);
-      currentTimeLink.forEach((link) => {
-        dispatch(setPermaLinkData(link.coordinates));
-      });
+      // currentTimeLink.forEach((link) => {
+      //   dispatch(setPermaLinkData(link.coordinates));
+      // });
       currentTimeCar.forEach((car) => {
         if (Object.keys(prevCar).length === 0) {
           prevCar[car.properties.carId] = car;

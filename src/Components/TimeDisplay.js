@@ -19,7 +19,7 @@ const TimeDisplay = () => {
 
     info.update = (props) => {
       info._div.innerHTML =
-        `<h2> ${props ? moment(props).utc().format("hh:mm a") : "00:00"}</h2>`
+        `<h2> ${props ? moment(props).utc().format("hh:mm:ss a") : "00:00"}</h2>`
     };
 
     timeDimension.on("timeload", (data) => {

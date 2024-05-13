@@ -58,7 +58,7 @@ const MovingMarker = ({ carId }) => {
     if (linkData[carId] && isRunning) {
       interval = setInterval(() => {
         setCursor((curr) => curr + 1);
-      }, 50);
+      }, 25);
       return () => clearInterval(interval);
     }
   });
