@@ -2,8 +2,121 @@
   text-align: center;
 }
 
+.custom-file-upload {
+  border: 1px solid #ccc;
+  display: inline-block;
+  padding: 6px 12px;
+  cursor: pointer;
+}
+
 .leaflet-container {
   height: 100vh;
   width: 100vw;
   position: absolute;
+}
+
+.leaflet-tooltip.passengerChange {
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: -24px;
+  top: 1px;
+}
+
+.leaflet-tooltip.oneDigit {
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: -3px;
+  top: 1px;
+}
+.leaflet-tooltip.oneDigit:before {
+  background: transparent;
+  border: 0px;
+}
+
+.leaflet-tooltip.twoDigit {
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: -7px;
+  top: 0.5px;
+}
+.leaflet-tooltip.twoDigit:before {
+  background: transparent;
+  border: 0px;
+}
+.car-popup .leaflet-popup-content-wrapper {
+  background: #1e1e1e;
+  color: white;
+}
+.car-popup .leaflet-popup-content {
+  margin: 28px 12px;
+}
+
+.link-popup .leaflet-popup-content-wrapper {
+  background: #1e1e1e;
+  color: white;
+}
+
+.leaflet-popup-tip-container .leaflet-popup-tip {
+  background: #1e1e1e;
+}
+
+.charging-car-icon{
+  width: 32px;
+  height: 32px;
+}
+
+.leaflet-tooltip.charging-station-capacity:before{
+  background: transparent;
+  border: 0px;
+}
+
+.leaflet-tooltip.charging-station-capacity{
+  background: transparent;
+  margin: 0px;
+  border: 0px;
+  padding: 0px;
+  box-shadow: none;
+  left: 16px;
+  top: 0px;
+}
+
+a {
+  color: #FFF;
+}
+
+.info.legend.leaflet-control{
+  margin-left: 64px;
+}
+
+.timeControl.leaflet-control{
+  cursor: pointer;
+}
+
+.info {
+  padding: 8px 20px;
+  background: white;
+  border-radius: 16px;
+  width: fit-content;
+  
+}
+
+.legend {
+  text-align: left;
+  line-height: 18px;
+  font-size: 32px;
+  background-color: #1e1e1e;
+  color: #d9d9d9;
+}
+
+.timeControl{
+  font-size: 18px;
 }
