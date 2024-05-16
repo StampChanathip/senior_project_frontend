@@ -11,7 +11,6 @@ import {
   addStationHistory,
   setIsShowStation,
 } from "../Redux/stationDetailSlice";
-import ChargingStationDetail from "./ChargingStationDetail";
 
 const icon = (url) =>
   L.icon({
@@ -32,7 +31,7 @@ const stationIcon = (status) => {
 };
 
 const StationPopupContent = ({ stationData, stationId }) => {
-  console.log( stationId, stationData)
+  // console.log( stationId, stationData)
   return (
     <Box>
       <Box
@@ -172,7 +171,7 @@ const ChargeStationMarker = ({ station, stationId }) => {
       <Marker
         position={{ lat: lat, lng: lng }}
         icon={
-          stationData.length >= 5
+          stationData.length >= 4
             ? stationIcon("full")
             : stationIcon("available")
         }
@@ -203,13 +202,13 @@ const ChargeStationMarker = ({ station, stationId }) => {
               }}
             >
               <ElectricCarRoundedIcon
-                sx={{ color: stationData.length >= 5 ? "red" : "white" }}
+                sx={{ color: stationData.length >= 4 ? "red" : "white" }}
                 fontSize="small"
               />
               <Typography
                 fontSize={16}
                 fontWeight={700}
-                color={stationData.length >= 5 ? "red" : "white"}
+                color={stationData.length >= 4 ? "red" : "white"}
               >
                 {stationData.length}
               </Typography>

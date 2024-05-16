@@ -2,12 +2,11 @@ import { useEffect, useState } from "react";
 import L from "leaflet";
 // import "./Legend.css";
 import { useMap } from "react-leaflet";
-import { player, timeDimension } from "./TimeDimension";
-import moment from "moment";
+import { player } from "./TimeDimension";
+// import moment from "moment";
 
 const TimePlayer = () => {
   const map = useMap();
-  const [isPlay, setIsPlay] = useState(false)
   useEffect(() => {
     const timeControl = L.control({ position: "bottomright" });
     timeControl.onAdd = () => {
@@ -25,12 +24,10 @@ const TimePlayer = () => {
       }
 
       player.on("play", () => {
-        setIsPlay(true)
         timeControl.update('Pause')
       })
 
       player.on("stop", () => {
-        setIsPlay(false)
         timeControl.update('Play')
       })
     

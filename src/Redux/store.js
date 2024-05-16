@@ -16,7 +16,6 @@ const persistConfig = {
 };
 
 const persistedReducer = persistReducer(persistConfig, carDataReducer);
-const persistedstationDataReducer = persistReducer(persistConfig, stationDataReducer);
 
 export const store = configureStore({
   reducer: {

@@ -3,12 +3,11 @@ import { useMap } from "react-leaflet";
 import "leaflet-timedimension";
 import { useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { resetCarData, setCarData } from "../Redux/carDataSlice";
+import {setCarData } from "../Redux/carDataSlice";
 
 import { useSelector } from "react-redux";
-import { setLinkData, setPermaLinkData } from "../Redux/linkDataSlice";
+import { setLinkData } from "../Redux/linkDataSlice";
 import { findCarbyTime } from "../Utils/findCarObject";
-import { Box, Button } from "@mui/material";
 
 export const timeDimension = new L.TimeDimension({
   period: "PT1H",
@@ -16,7 +15,7 @@ export const timeDimension = new L.TimeDimension({
 
 export const player = new L.TimeDimension.Player(
   {
-    transitionTime: 1000,
+    transitionTime: 100,
     loop: true,
     startOver: true,
   },
@@ -45,9 +44,9 @@ const TimeDimension = () => {
       speedStep: 1,
       timeSlider: false,
     };
-    const timeDimensionControl = new L.Control.TimeDimension(
-      timeDimensionControlOptions
-    );
+    // const timeDimensionControl = new L.Control.TimeDimension(
+    //   timeDimensionControlOptions
+    // );
 
     // map.addControl(timeDimensionControl);
 
@@ -57,11 +56,11 @@ const TimeDimension = () => {
 
     let prevCar = {};
     timeDimension.on("timeload", (data) => {
-      if(data.target._currentTimeIndex === 1 || data.target._currentTimeIndex === data.target._availableTimes.length){
-        console.log(new Date())
-      }
+      // if(data.target._currentTimeIndex === 1 || data.target._currentTimeIndex === data.target._availableTimes.length){
+      //   console.log(new Date())
+      // }
       const currentTimeCar = findCarbyTime(excelData, data.time);
-      const currentTimeLink = findCarbyTime(allLinkData, data.time);
+      // const currentTimeLink = findCarbyTime(allLinkData, data.time);
       // currentTimeLink.forEach((link) => {
       //   dispatch(setPermaLinkData(link.coordinates));
       // });

@@ -2,15 +2,14 @@ import "../../node_modules/leaflet/dist/leaflet.css";
 import L from "leaflet";
 import { MapContainer, TileLayer, Polyline, Popup } from "react-leaflet";
 
-import chargeStation from "../MockData/chargingStation.json";
+import chargeStation from "../StaticData/chargingStation.json";
 
 import MovingMarker from "./MovingMarker";
 import PassengerDetails from "./PassengerDetails";
 import { useSelector } from "react-redux";
 import { useEffect, useState } from "react";
-import TimeDimension, { timeDimension } from "./TimeDimension";
+import TimeDimension from "./TimeDimension";
 import ChargeStationMarker from "./ChargeStationMarker";
-import mockLine from "../MockData/mockLine.json";
 import { linkColor } from "../Utils/colorConfig";
 import ChargingStationDetail from "./ChargingStationDetail";
 import { Box, Button, Typography } from "@mui/material";
