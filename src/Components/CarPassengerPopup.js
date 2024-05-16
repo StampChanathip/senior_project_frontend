@@ -9,7 +9,7 @@ import {
   setPassengerDetail,
 } from "../Redux/passDetailSlice";
 import moment from "moment";
-import nodeName from "../MockData/nodeName.json"
+import nodeName from "../StaticData/nodeName.json"
 
 const carStatus = (status) => {
   if (status === "run") {
