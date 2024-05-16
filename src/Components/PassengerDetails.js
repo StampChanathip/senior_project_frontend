@@ -3,7 +3,7 @@ import CloseIcon from "@mui/icons-material/Close";
 import { useDispatch, useSelector } from "react-redux";
 import { setIsShowPassenger } from "../Redux/passDetailSlice";
 import { useEffect } from "react";
-import nodeName from "../MockData/nodeName.json"
+import nodeName from "../StaticData/nodeName.json"
 import moment from "moment/moment";
 
 export const waitedTimeParse = (time) => {

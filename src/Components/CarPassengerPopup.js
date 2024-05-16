@@ -9,6 +9,7 @@ import {
   setPassengerDetail,
 } from "../Redux/passDetailSlice";
 import moment from "moment";
+import nodeName from "../StaticData/nodeName.json"
 
 const carStatus = (status) => {
   if (status === "run") {
@@ -26,8 +27,10 @@ const CarPopupContent = ({ currentCar }) => {
   const havePassenger = currentCar.passengers.length !== 0;
   const dispatch = useDispatch();
   const { passengerDetail } = useSelector((state) => state.passengerDetail);
-  const [lastChargeTime, setLastChargeTime] = useState(moment("2024-01-01T06:30:00Z").subtract(7, "h").format("hh:mm:ss"))
-  const passengers = []
+  const [lastChargeTime, setLastChargeTime] = useState(
+    moment("2024-01-01T06:30:00Z").subtract(7, "h").format("hh:mm:ss")
+  );
+  const passengers = [];
   currentCar.passengers.forEach((i) => {
     if (i.amount > 1) {
       const pass = [];
@@ -40,16 +43,17 @@ const CarPopupContent = ({ currentCar }) => {
     }
   });
   useEffect(() => {
-    if(currentCar.carId === passengerDetail.carId){
+    console.log(currentCar);
+    if (currentCar.carId === passengerDetail.carId) {
       dispatch(
         setPassengerDetail({
           carId: currentCar.carId,
           detail: currentCar.passengers,
-          time: currentCar.time
+          time: currentCar.time,
         })
       );
     }
-  }, [currentCar])
+  }, [currentCar]);
   return (
     <Box
       sx={{
@@ -67,8 +71,20 @@ const CarPopupContent = ({ currentCar }) => {
           alignItems: "flex-end",
         }}
       >
-        <Box sx={{ fontSize: "16px" }}>Vehicle No. {currentCar.carId}</Box>
-        <Box sx={{ fontSize: "12px" }}>{carStatus(currentCar.status)}</Box>
+        <Box sx={{ display: "flex", flexDirection: "column" }}>
+          <Box sx={{ fontSize: "16px" }}>Vehicle No. {currentCar.carId}</Box>
+          <Box sx={{ fontSize: "12px" }}>{nodeName[currentCar.nodeFrom]}</Box>
+        </Box>
+        <Box
+          sx={{
+            display: "flex",
+            flexDirection: "column",
+            alignItems: "flex-end",
+          }}
+        >
+          <Box sx={{ fontSize: "12px" }}>{currentCar.arrivalTime}</Box>
+          <Box sx={{ fontSize: "12px" }}>{carStatus(currentCar.status)}</Box>
+        </Box>
       </Box>
       <Divider
         flexItem
@@ -93,7 +109,12 @@ const CarPopupContent = ({ currentCar }) => {
           }}
         >
           <Box sx={{ fontSize: "14px" }}>Battery Percentage</Box>
-          <Box>Last charge : {moment(currentCar.lastChargeTime).subtract(7, "h").format('hh:mm:ss')}</Box>
+          <Box>
+            Last charge :{" "}
+            {moment(currentCar.lastChargeTime)
+              .subtract(7, "h")
+              .format("hh:mm:ss")}
+          </Box>
         </Box>
         <Box position="relative">
           <Box
@@ -123,7 +144,7 @@ const CarPopupContent = ({ currentCar }) => {
               setPassengerDetail({
                 carId: currentCar.carId,
                 detail: currentCar.passengers,
-                time: currentCar.time
+                time: currentCar.time,
               })
             );
           }
